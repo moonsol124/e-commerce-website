@@ -12,9 +12,13 @@ function ToggledMenu(props) {
                         <Link to={{pathname: `/${props.isWomans}`}}><h3> Shop Name </h3></Link>
                     </li>
                     <li>
-                        <p>
+                        <button type="button"> menu </button> 
+                        {/* {(!props.token)?<Link to="/user/login"><p>
                             Login
                         </p>
+                        </Link>:
+                        <p onClick={props.removeToken}>Log out</p>
+                        } */}
                     </li>
                 </ul>
             </div>

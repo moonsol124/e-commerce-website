@@ -17,7 +17,7 @@ function Nav(props) {
 
     return (
         <>
-            {(toggled)?<ToggledMenu setSideMenu={props.setSideMenu} isWomans={props.isWomans}/>:<Menu />}
+            {(toggled)?<ToggledMenu token={props.token} removeToken={props.removeToken} setSideMenu={props.setSideMenu} isWomans={props.isWomans}/>:<Menu />}
         </>
     )
 }

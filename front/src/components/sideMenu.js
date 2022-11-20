@@ -3,6 +3,24 @@ import {Link} from 'react-router-dom';
 import {useState, useEffect} from 'react';
 
 function SideMenu(props) {
+    const [isAdmin, setIsAdmin] = useState(false);
+    
+    function userLogout() {
+        props.removeToken();
+        props.setSideMenu();
+    }
+
+    useEffect(() => {
+        if (props.user) {
+            const user = JSON.parse(props.user);
+            if (user.isAdmin === true) {
+                setIsAdmin(true);
+            }
+            else {
+                setIsAdmin(false);
+            }
+        }
+    }, [])
 
     return (
         <div className="sideMenu-div">
@@ -29,6 +47,20 @@ function SideMenu(props) {
                 <li>category7</li>
                 <li>category8</li>
                 <li>category9</li>
+            </ul>
+            <hr></hr>
+            <ul className="side-menu-ul">
+                {(props.user)?<li><button type="button" onClick={userLogout}> Log out </button></li>
+                :<>
+                <li>
+                    <button type="button" onClick={props.setLoginPage}> Login </button>
+                </li>
+                <li>
+                    <button type="button" onClick={props.setRegisterPage}> Sign up </button>
+                </li>
+                </>}
+                {(isAdmin)?
+                <Link to='/admin' onClick={props.setSideMenu}><button type="button"> Admin Dashboard </button></Link>:null}               
             </ul>
         </div>
     )
