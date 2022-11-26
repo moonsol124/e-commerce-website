@@ -26,7 +26,7 @@ exports.create = [
     (req, res, next) => {
         const errors = validationResult(req);
         const material = new Material({
-            name: req.query.name,
+            name: req.body.name,
         })
         material.save((err, material) => {
             if (err) {
@@ -73,7 +73,7 @@ exports.update = [
             }
             const updatedmaterial = new Material({
                 _id: req.params.materialId,
-                name: req.query.name,
+                name: req.body.name,
             })
 
             Material.findByIdAndUpdate(req.params.materialId, updatedmaterial, {}, (err) => {

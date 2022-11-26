@@ -9,5 +9,5 @@ router.post('/collection/create', CollectionController.create);
 router.get('/collection/:collectionId', CollectionController.get_collection);
 router.put('/collection/:collectionId/update', CollectionController.update);
 router.delete('/collection/:collectionId/delete', CollectionController.delete);
-
+// router.get('/db_collections', CollectionController.get_db_collections);
 module.exports = router;

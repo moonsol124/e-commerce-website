@@ -14,6 +14,21 @@ mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
+// db.on('open', function () {
+//   db.db.listCollections().toArray(function (err, names) {
+    
+//     if (err) {
+//       console.log(err);
+//       return;
+//     }
+
+//     const filtered = names.map(arry => {
+//       return arry.name;
+//     })
+//     console.log (filtered);
+//   });
+// });
+
 var indexRouter = require('./routes/index');
 const colorRouter = require('./routes/color');
 const sizeRouter = require('./routes/size');
@@ -23,6 +38,7 @@ const fitRouter = require('./routes/fit');
 const genderRouter = require('./routes/gender');
 const collectionRouter = require('./routes/collection');
 const userRouter = require('./routes/user');
+const { resolve } = require('path');
 
 var app = express();
 app.use(cors());

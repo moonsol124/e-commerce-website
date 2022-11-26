@@ -1,5 +1,12 @@
 const async = require('async');
 const Collection = require('../models/collection');
+const Care = require('../models/care');
+const Color = require('../models/color');
+const Fit = require('../models/fit');
+const Size = require('../models/size');
+const Material = require('../models/material');
+const Gender = require('../models/gender');
+const mongoose = require("mongoose");
 const { body, validationResult } = require("express-validator");
 
 exports.get_collections = function(req, res, next) {
@@ -23,6 +30,9 @@ exports.create = [
         .trim()
         .isLength({max:50})
         .escape(),
+    body("fotoUrl", "required")
+        .trim()
+        .escape(),
     body("price", "required")
         .trim()
         .escape(),
@@ -30,29 +40,21 @@ exports.create = [
         .trim()
         .isLength({max:300})
         .escape(),
-    body("color", "required")
-        .trim()
-        .escape(),
-    body("size", "")
-        .trim()
-        .escape(),
-    body("material", "")
-        .trim()
-        .escape(),
-    body("fit", "")
-        .trim()
-        .escape(),
-    body("care", "")
-        .trim()
-        .escape(),
-    body("gender", "required")
-        .trim()
-        .escape(),    
     (req, res, next) => {
         const errors = validationResult(req);
         const collection = new Collection({
-            name: req.query.name,
+            name: req.body.name,
+            description: req.body.description,
+            price: req.body.price,
+            fotoUrl: req.body.fotoUrl,
+            color: req.body.color,
+            care: req.body.care,
+            size: req.body.size,
+            fit: req.body.fit,
+            gender: req.body.gender,
+            material: req.body.material,
         })
+        console.log (collection);
         collection.save((err, collection) => {
             if (err) {
                 const message = {message: err, status:400}
@@ -84,6 +86,9 @@ exports.update = [
     body("name", "required and maximum length is 50")
         .trim()
         .isLength({max:50})
+        .escape(),
+    body("fotoUrl", "required")
+        .trim()
         .escape(),
     body("price", "required")
         .trim()
@@ -123,7 +128,7 @@ exports.update = [
             }
             const updatedcollection = new Collection({
                 _id: req.params.collectionId,
-                name: req.query.name,
+                name: req.body.name,
             })
 
             Collection.findByIdAndUpdate(req.params.collectionId, updatedcollection, {}, (err) => {
@@ -158,4 +163,17 @@ exports.delete = function(req, res, next) {
             return res.status(201).json(message);
         })
     })
+}
+
+
+exports.get_db_collections = function(req, res, next) {
+    const mongoDb = process.env.DATA_BASE_CONNECTION_STRING;
+    mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
+    const db = mongoose.connection;
+    db.on("error", console.error.bind(console, "mongo connection error"));
+    db.on('open', function () {
+        db.db.listCollections().toArray(function (err, names) {
+          return res.status(200).json({message:"ok"});
+        });
+    });
 }

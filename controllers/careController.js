@@ -26,7 +26,7 @@ exports.create = [
     (req, res, next) => {
         const errors = validationResult(req);
         const care = new Care({
-            name: req.query.name,
+            name: req.body.name,
         })
         care.save((err, care) => {
             if (err) {
@@ -73,7 +73,7 @@ exports.update = [
             }
             const updatedcare = new Care({
                 _id: req.params.careId,
-                name: req.query.name,
+                name: req.body.name,
             })
 
             Care.findByIdAndUpdate(req.params.careId, updatedcare, {}, (err) => {

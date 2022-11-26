@@ -26,7 +26,7 @@ exports.create = [
     (req, res, next) => {
         const errors = validationResult(req);
         const gender = new Gender({
-            name: req.query.name,
+            name: req.body.name,
         })
         gender.save((err, gender) => {
             if (err) {
@@ -73,7 +73,7 @@ exports.update = [
             }
             const updatedgender = new Gender({
                 _id: req.params.genderId,
-                name: req.query.name,
+                name: req.body.name,
             })
 
             Gender.findByIdAndUpdate(req.params.genderId, updatedgender, {}, (err) => {

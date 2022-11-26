@@ -26,7 +26,7 @@ exports.create = [
     (req, res, next) => {
         const errors = validationResult(req);
         const fit = new Fit({
-            name: req.query.name,
+            name: req.body.name,
         })
         fit.save((err, fit) => {
             if (err) {
@@ -73,7 +73,7 @@ exports.update = [
             }
             const updatedfit = new Fit({
                 _id: req.params.fitId,
-                name: req.query.name,
+                name: req.body.name,
             })
 
             Fit.findByIdAndUpdate(req.params.fitId, updatedfit, {}, (err) => {

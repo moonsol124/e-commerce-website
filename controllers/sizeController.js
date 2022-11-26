@@ -26,7 +26,7 @@ exports.create = [
     (req, res, next) => {
         const errors = validationResult(req);
         const size = new Size({
-            name: req.query.name,
+            name: req.body.name,
         })
         size.save((err, size) => {
             if (err) {
@@ -73,7 +73,7 @@ exports.update = [
             }
             const updatedSize = new Size({
                 _id: req.params.sizeId,
-                name: req.query.name,
+                name: req.body.name,
             })
 
             Size.findByIdAndUpdate(req.params.sizeId, updatedSize, {}, (err) => {
