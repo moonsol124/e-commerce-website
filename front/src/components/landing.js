@@ -6,14 +6,11 @@ function Landing() {
         <div className="landing-div">
             <div className="landing-bg-1">
             </div>
-            <div  className="landing-bg-2">
-            </div>
-            <div className="landing-texts texts-container">
-                <h1> some header </h1>
-                <h3> some sub header </h3>
-                <p> some paragraph </p>
+            <div className="landing-texts texts-container text-shadow-white-black">
+                <p className="big-text">Woman & Only</p>
+                <p>From woman, by woman, and for woman.</p>
                 <div className="button-container">
-                    <Link to='/woman/'><button> some button </button></Link>
+                    <Link to='/home'><button className="landing-btn"> Shop Now </button></Link>
                 </div> 
             </div>
         </div>

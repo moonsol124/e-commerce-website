@@ -3,20 +3,24 @@ import './App.css';
 import {useState, useEffect} from 'react';
 import uniqid from 'uniqid';
 import {BrowserRouter, Routes, Route} from 'react-router-dom';
-import Home from './components/woman/home';
+import Home from './components/home';
 import About from './components/about';
 import Landing from './components/landing';
 import Nav from './components/nav';
-import NewArrival from './components/woman/newArrival';
-import Trend from './components/woman/trend';
+import NewArrival from './components/newArrival';
+import Trend from './components/trend';
 import SideMenu from './components/sideMenu';
-import HomeMan from './components/man/home';
 import Login from './components/login';
 import Register from './components/register';
 import useToken from './useToken';
 import AdminDashboard from './components/adminDashboard';
 import Color from './components/admin/color';
 import Gender from './components/admin/gender';
+import Fit from './components/admin/fit';
+import Care from './components/admin/care';
+import Material from './components/admin/material';
+import Size from './components/admin/size';
+import Collection from './components/admin/collection';
 
 function App() {
   const [reload, setReload] = useState(false);
@@ -25,10 +29,7 @@ function App() {
   const [registerToggled, setRegisterToggled] = useState(false);
   const [isWomans, setIsWomans] = useState('woman');
   const { token, removeToken, setToken, user } = useToken();
-  const [collections, setCollections] = useState([{path: "color", endpointMultiple: 'colors', fields: [{label: 'Name', type: 'text', name: 'name'}, {label: 'Color', type: 'color', name: 'rgbValue'}]},
-  {path: "gender", endpointMultiple: 'genders', fields: [{label: 'Name', type: 'text', name: 'name'}]}
-])
-
+  
   function reRender() {
     setReload(true);
     setTimeout(() => {
@@ -49,8 +50,11 @@ function App() {
     }
   }
 
+  function closeSideMenu() {
+    setSideMenuToggled(false);
+  }
+
   function setLoginPage() {
-    setSideMenu();
     if (loginToggled) {
       setLoginToggled(false);
     }
@@ -60,16 +64,10 @@ function App() {
   }
 
   function closeLoginPage() {
-    if (loginToggled) {
-      setLoginToggled(false);
-    }
-    else {
-      setLoginToggled(true);
-    }
+    setLoginToggled(false);
   }
 
   function setRegisterPage() {
-    setSideMenu();
     if (registerToggled) {
       setRegisterToggled(false);
     }
@@ -79,20 +77,15 @@ function App() {
   }
 
   function closeRegisterPage() {
-    if (registerToggled) {
-      setRegisterToggled(false);
-    }
-    else {
-      setRegisterToggled(true);
-    }
+    setRegisterToggled(false);
   }
 
   return (
     <div className="App">
       <BrowserRouter>
-      <Nav setSideMenu={setSideMenu} isWomans={isWomans} token={token} removeToken={removeToken}/>
-      {(loginToggled)?<Login closeLoginPage={closeLoginPage} setToken={setToken}/>:null}
-      {(registerToggled)?<Register closeRegisterPage={closeRegisterPage} setRegisterPage={setRegisterPage} />:null}
+      <Nav user={user} closeLoginPage={closeLoginPage} closeRegisterPage={closeRegisterPage} closeSideMenu={closeSideMenu} setSideMenu={setSideMenu} setRegisterPage={setRegisterPage} setLoginPage={setLoginPage} token={token} removeToken={removeToken}/>
+      {(loginToggled)?<Login setLoginPage={setLoginPage} setSideMenu={setSideMenu} setRegisterPage={setRegisterPage} setToken={setToken}/>:null}
+      {(registerToggled)?<Register setLoginPage={setLoginPage} closeRegisterPage={closeRegisterPage} setRegisterPage={setRegisterPage} />:null}
       {(!sideMenuToggled)?null:<SideMenu removeToken={removeToken} user={user} setLoginPage={setLoginPage} setRegisterPage={setRegisterPage} setSideMenu={setSideMenu} isWomans={isWomans} setGenderCategory={setGenderCategory}/>}
         <Routes>
           <Route path='/' element={<Landing />} />
@@ -102,20 +95,18 @@ function App() {
           <Route path='admin' element={<AdminDashboard reRender={reRender}/>}>
             <Route path='color' element={<Color />}/> 
             <Route path='gender' element={<Gender />}/> 
-            {/* {collections.map((c) => {
-              return <Route key={uniqid()} path={c.path} element={<Item fields={c.fields} endpointSingle={c.path} endpointMultiple={c.endpointMultiple} />}/>
-            })} */}
-            {/* <Route path='color' element={<Color />}>
-            </Route> */}
+            <Route path='fit' element={<Fit />}/>
+            <Route path='care' element={<Care />} />
+            <Route path='material' element={<Material />} />
+            <Route path='size' element={<Size />} />
+            <Route path='collection' element={<Collection />} />
           </Route>
 
           {/* woman */}
-          <Route path='/woman/' element={<Home />}></Route>
-          <Route path='/woman/new_arrival' element={<NewArrival />}></Route>
-          <Route path='/woman/trend' element={<Trend />}></Route>
+          <Route path='/home' element={<Home />}></Route>
+          <Route path='/new_arrival' element={<NewArrival />}></Route>
+          <Route path='/trend' element={<Trend />}></Route>
 
-          {/* man */}
-          <Route path='/man/' element={<HomeMan />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

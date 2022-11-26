@@ -56,3 +56,14 @@
 .item-update-form {
     margin-top: 1rem;
 }
+
+.checkboxes {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.input-box-for-checkbox {
+    display: flex;
+    gap: .2rem;
+}

@@ -33,32 +33,52 @@ function Register(props) {
         })
     }
 
+    function getLoginPage() {
+        props.setLoginPage();
+        props.closeRegisterPage();
+    }
+
     return (
         <div className="login-div">
-            <form className="login-form" onSubmit={registerUser}>
-                <div type="button">
-                    <button onClick={props.closeRegisterPage}> close </button>
+            <div className="login-contents">
+                <div className="close-btn-container" onClick={props.closeRegisterPage}>
+                    <div className="close-btn scale-on-hover"></div>
                 </div>
-                Register
-                <div>
-                    <label htmlFor="username"></label>
-                    <input type="text" id="username" name="username"/>
+                <form className="login-form text-center" onSubmit={registerUser}>
+                    <div className="login-form-item">
+                        <p className="small-text">W&O</p>
+                        <p className="medium-text">Create an account</p>
+                        <p>Complete your sing up to receive a discount.</p>
+                    </div>
+                    <div className="login-form-item">
+                        <label htmlFor="username"></label>
+                        <input type="text" id="username" name="username" className="login-form-input" placeholder='Username'/>
+                    </div>
+                    <div className="login-form-item">
+                        <label htmlFor="userPassword"></label>
+                        <input type="password" id="userPassword" name="userPassword" autoComplete='userPassword' className="login-form-input" placeholder='Password'/>
+                    </div>
+                    <div className="login-form-item">
+                        <label htmlFor="userPassword"></label>
+                        <input type="password" id="userPassword" name="userPassword" autoComplete='userPassword' className="login-form-input" placeholder='Password confirm'/>
+                    </div>
+                    <div>
+                        {message}
+                    </div>
+                    <div className="button-container">
+                        <button type="submit" className="login-submit-btn"> Register</button>
+                    </div> 
+                    <div>
+                        Already have an account?
+                    </div>
+                    <div className="button-container">
+                        <p onClick={getLoginPage} className="scale-on-hover"> Log in </p>
+                    </div> 
+                </form>
+                <div className="login-pic-container">
+                    <div className="register-pic"></div>
                 </div>
-                <div>
-                    <label htmlFor="userPassword"></label>
-                    <input type="password" id="userPassword" name="userPassword" autoComplete='userPassword'/>
-                </div>
-                <div>
-                    <label htmlFor="userPassword"></label>
-                    <input type="password" id="userPassword" name="userPassword" autoComplete='userPassword'/>
-                </div>
-                <div>
-                    {message}
-                </div>
-                <div className="button-container">
-                    <button type="submit"> Register</button>
-                </div> 
-            </form>
+            </div>
         </div>
     )
 }

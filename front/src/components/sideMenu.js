@@ -24,16 +24,9 @@ function SideMenu(props) {
 
     return (
         <div className="sideMenu-div">
-            <div className="sidemenu">
-                <div className="sidemenu-gender">
-                    <Link to='/woman/'><div id="woman" onClick={props.setGenderCategory}>Woman</div></Link>
-                    <Link to='/man/'><div id="man" onClick={props.setGenderCategory}>man</div></Link>
-                </div>
-            </div>
-            <hr></hr>
             <ul className="side-menu-ul">
-                <Link to={{pathname: `/${props.isWomans}/new_arrival`}}><li onClick={props.setSideMenu}>New Arrivals</li></Link>
-                <Link to={{pathname: `/${props.isWomans}/trend`}}><li onClick={props.setSideMenu}>Trends</li></Link>
+                <Link to='/new_arrival'><li onClick={props.setSideMenu}>New Arrivals</li></Link>
+                <Link to='/trend'><li onClick={props.setSideMenu}>Trends</li></Link>
                 <li>Seasonal Arrivals</li>
             </ul>
             <hr></hr>
@@ -47,20 +40,6 @@ function SideMenu(props) {
                 <li>category7</li>
                 <li>category8</li>
                 <li>category9</li>
-            </ul>
-            <hr></hr>
-            <ul className="side-menu-ul">
-                {(props.user)?<li><button type="button" onClick={userLogout}> Log out </button></li>
-                :<>
-                <li>
-                    <button type="button" onClick={props.setLoginPage}> Login </button>
-                </li>
-                <li>
-                    <button type="button" onClick={props.setRegisterPage}> Sign up </button>
-                </li>
-                </>}
-                {(isAdmin)?
-                <Link to='/admin' onClick={props.setSideMenu}><button type="button"> Admin Dashboard </button></Link>:null}               
             </ul>
         </div>
     )

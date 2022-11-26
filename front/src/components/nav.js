@@ -6,18 +6,9 @@ import ToggledMenu from './toggledMenu';
 function Nav(props) {
     const [toggled, setToggled] = useState(false);
 
-    useEffect(() => {
-        if (window.innerWidth < 800) {
-            setToggled(true);
-        }
-        else {
-            setToggled(false);
-        }
-    }, [])
-
     return (
         <>
-            {(toggled)?<ToggledMenu token={props.token} removeToken={props.removeToken} setSideMenu={props.setSideMenu} isWomans={props.isWomans}/>:<Menu />}
+            <ToggledMenu user={props.user} closeLoginPage={props.closeLoginPage} closeRegisterPage={props.closeRegisterPage}  closeSideMenu={props.closeSideMenu} setRegisterPage={props.setRegisterPage} token={props.token} setLoginPage={props.setLoginPage} removeToken={props.removeToken} setSideMenu={props.setSideMenu}/>
         </>
     )
 }

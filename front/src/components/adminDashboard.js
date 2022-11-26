@@ -13,7 +13,6 @@ function AdminDashboard(props) {
                 <Link to="/admin/gender"><button className="admin-btn">Genders</button></Link>
                 <Link to="/admin/material"><button className="admin-btn">Materials</button></Link>
                 <Link to="/admin/size"><button className="admin-btn">Sizes</button></Link>
-                <Link to="/admin/user"><button className="admin-btn">Users</button></Link>
             </div>
         </div>
         <Outlet />
