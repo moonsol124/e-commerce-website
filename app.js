@@ -9,7 +9,8 @@ const mongoose = require("mongoose");
 const passport = require('passport');
 require('./passport');
 
-const mongoDb = process.env.DATA_BASE_CONNECTION_STRING;
+const mongoDb = 'mongodb+srv://ecommerce:ecommerce@cluster0.inanp3j.mongodb.net/e-commerce?retryWrites=true&w=majority';
+// const mongoDb = process.env.DATA_BASE_CONNECTION_STRING;
 mongoose.connect(mongoDb, { useUnifiedTopology: true, useNewUrlParser: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
