@@ -135,14 +135,14 @@ exports.login = function(req, res, next) {
             return res.status(400).json(message);
         }
         if (!user) {
-            const message = {message: "no user found", user: user, status:400}
+            const message = {message: "Username or passwords do not match", user: user, status:400}
             return res.status(400).json(message);
         }
         req.login(user, {session: false}, (err) => {
             if (err) {
                 return res.send(err);
             }  
-            const token = jwt.sign({user: user}, 'your_jwt_secret', {expiresIn: '10m'});
+            const token = jwt.sign({user: user}, 'your_jwt_secret', {expiresIn: '1h'});
             const message = {message: "Login successful", token: token, user: user, status: 200};
             return res.status(200).json(message);
         });

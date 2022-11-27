@@ -69,7 +69,13 @@ exports.create = [
 exports.get_collection = function(req, res, next) {
     async.parallel({
         collection(callback) {
-            Collection.findById(req.params.collectionId).exec(callback);
+            Collection.findById(req.params.collectionId)
+            .populate("color")
+            .populate("care")
+            .populate("size")
+            .populate("fit")
+            .populate("material")
+            .exec(callback);
         }
     }, 
     (err, collection) => {
@@ -77,6 +83,7 @@ exports.get_collection = function(req, res, next) {
             const message = {message: err, status:400}
             return res.status(400).json(message);
         }
+        console.log(collection);
         const message = {message: 'OK', status:200, collection: collection};
         return res.status(200).json(message);
     })
